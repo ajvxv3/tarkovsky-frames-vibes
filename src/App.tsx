@@ -49,12 +49,15 @@ function PhotoViewer({ movie, initialFrame }: { movie: string; initialFrame?: nu
   const [frameInput, setFrameInput] = useState('');
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  // Handle initial frame when provided
+  // Update initialFrame handling
   useEffect(() => {
     if (initialFrame) {
       setCurrentPhotoIndex(initialFrame - START_FRAME);
+      setErrorMessage(null);
+    } else {
+      setCurrentPhotoIndex(0);
     }
-  }, [initialFrame]);
+  }, [initialFrame, movie]); // Add movie as dependency to handle movie changes
 
   const goToPrevious = React.useCallback(() => {
     const newIndex = Math.max(0, currentPhotoIndex - 1);
@@ -160,11 +163,11 @@ function PhotoViewer({ movie, initialFrame }: { movie: string; initialFrame?: nu
   );
 }
 
-// Wrapper component to handle route parameters
+// Update MovieViewer to ensure frame is properly passed
 function MovieViewer() {
   const params = useParams();
   const movie = params.movie || 'stalker';
-  const frame = params.frame ? parseInt(params.frame) : undefined;
+  const frame = params.frame ? parseInt(params.frame) : 1; // Default to frame 1 instead of undefined
   
   return <PhotoViewer movie={movie} initialFrame={frame} />;
 }
