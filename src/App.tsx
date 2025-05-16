@@ -5,7 +5,7 @@ import './App.css';
 // Move the photo viewer into its own component
 function MovieNav({ currentMovie }: { currentMovie: string }) {
   const navigate = useNavigate();
-  const movies = ['stalker', 'solaris', 'mirror'];
+  const movies = ['stalker', 'solaris', 'mirror', 'nostalghia'];
   const START_FRAME = 1;
 
   return (
@@ -39,10 +39,10 @@ function PhotoViewer({ movie, initialFrame }: { movie: string; initialFrame?: nu
 
   // Determine padding based on movie
   const getPaddedNumber = (num: number) => {
-    if (movie === 'mirror' || movie === 'solaris') {
-      return String(num).padStart(4, '0');
+    if (movie === 'stalker') {
+      return String(num).padStart(5, '0'); 
     }
-    return String(num).padStart(5, '0');
+    return String(num).padStart(4, '0');
   };
 
   const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
