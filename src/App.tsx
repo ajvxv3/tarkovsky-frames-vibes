@@ -5,8 +5,15 @@ import './App.css';
 // Move the photo viewer into its own component
 function MovieNav({ currentMovie }: { currentMovie: string }) {
   const navigate = useNavigate();
-  const movies = ['stalker', 'solaris', 'mirror', 'nostalghia'];
+  const movies = ['stalker', 'solaris', 'mirror', 'nostalghia', 'sacrifice'];
   const START_FRAME = 1;
+
+  const getButtonText = (movie: string) => {
+    if (movie === 'sacrifice') {
+      return 'The SacrifIce';
+    }
+    return movie.charAt(0).toUpperCase() + movie.slice(1);
+  };
 
   return (
     <nav className="movie-nav">
@@ -16,7 +23,7 @@ function MovieNav({ currentMovie }: { currentMovie: string }) {
           className={`nav-tab ${movie === currentMovie ? 'active' : ''}`}
           onClick={() => navigate(`/${movie}/${START_FRAME}`)}
         >
-          {movie.charAt(0).toUpperCase() + movie.slice(1)}
+          {getButtonText(movie)}
         </button>
       ))}
     </nav>
